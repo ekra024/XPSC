@@ -8,23 +8,21 @@ typedef long long int ll;
 const int N=1e5;
 int hsh[N];
 
-ll fun(ll n)
-{
-    if(n%4 == 0) return n;
-    if(n%4 == 1) return 1;
-    if(n%4 == 2) return n+1;
-    return 0;
-}
-
 int main()
 {
     optimize();
-    ll a, b; cin >> a >> b;
-    if(a > 0) a= a-1;
-    ll ans = fun(b) ^ fun(a);
+    ll t; cin >> t;
+    while(t--) {
+        string s,given ="314159265358979323846264338327";
+        ll cnt = 0;
+        cin >> s;
+        for(int i = 0; i < s.size(); i++) {
+            if(s[i] == given[i]) cnt++;
+            else break;
+        }
 
-
-   cout << ans << '\n';
+        cout << cnt << '\n';
+    }
 }
 
 
