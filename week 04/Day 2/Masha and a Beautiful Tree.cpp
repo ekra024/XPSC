@@ -7,62 +7,43 @@ typedef long long int ll;
 #define optimize() ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
 const int N=1e5;
 int hsh[N];
+vector<ll>v;
+
+int solve(ll l, ll r)
+{
+
+    if (r - l == 1)
+        return 0;
+    int mid = (l + r)/ 2;
+    int mal = *max_element(v.begin()+l , v.begin()+mid);
+    int mar = *max_element(v.begin()+mid, v.begin()+r);
+    int ans = 0;
+    if (mal > mar)
+    {
+
+        ans++;
+        for (int i = 0; i < (mid - l); i++)
+            swap(v[l + i], v[mid + i]);
+    }
+    return solve(l, mid) + solve(mid, r) + ans;
+}
 
 int main()
 {
     optimize();
     ll t; cin >> t;
-    while(t--) {
+    while (t--)
+    {
         ll n; cin >> n;
-        set<ll>s1, s2;
-        bool ok = true;
-        vector<ll>v(n);
-
-        for(ll i = 0; i < n; i++) {
-            cin >> v[i];
-            if(i < n/2) s1.insert(v[i]);
-            else s2.insert(v[i]);
+        for (int i = 0; i < n; i++) {
+            int a; cin >> a;
+            v.push_back(a);
         }
 
-        ll mn = v[0], cnt = 0;
+        ll ans = solve(0, n);
 
-        for(ll i = 0; i < n; i+=2) {
-            if(i < n-1 && abs(v[i] - v[i+1]) != 1) ok = false;
-        }
-
-        for(ll i = 0; i < n; i++) {
-            if(v[i] < mn) {
-                cnt++;
-            }
-            mn = v[i];
-        }
-
-        auto first = *s1.begin();
-        while(!s1.empty()) {
-            auto it = s1.find(first);
-            if(it != s1.end()) {
-                s1.erase(it);
-                first++;
-            }
-            else if(it == s1.end()){
-                ok = false; break;
-            }
-        }
-
-        auto second = *s2.begin();
-        while(!s2.empty()) {
-            auto it = s2.find(second);
-            if(it != s2.end()) {
-                s2.erase(it);
-                second++;
-            }
-            else if(it == s2.end()) {
-                ok = false;break;
-            }
-        }
-
-        if(ok) cout << cnt << '\n';
+        if (is_sorted(v.begin(), v.end())) cout << ans << '\n';
         else cout << -1 << '\n';
+        v.clear();
     }
 }
-
