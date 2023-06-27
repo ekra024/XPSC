@@ -8,30 +8,45 @@ typedef long long int ll;
 const int N=1e5;
 int hsh[N];
 
-struct DATA{
-    ll x, w, ind;
-
-    bool operator< const DATA & d) const{
-        return (this->w<d.w);
-
-    }
-
-};
-
-bool comp(DATA a, DATA d) {
-    return (a.x < d.x);
-}
 
 int main()
 {
     optimize();
     ll t; cin >> t;
     while(t--) {
-        ll n, m;
-        vector<DATA>a(m);
-        for(ll i = 0; i < m-1; i++) {
-            //a[i].x , a[i].w;
+        ll n, m; cin >> n >> m;
+        vector<pair<ll,pair<ll, ll> > > v;
+        vector<pair<ll, ll> > p;
+        vector<pair<ll, ll> >ans;
+
+        for(ll i = 0; i < m; i++) {
+           ll x, w; cin >> x >> w;
+           v.push_back({w,{x, i+1}});
         }
+
+        cout << '\n';
+        ll sum = 0, cnt = 0;
+
+        sort(v.begin(), v.end());
+        for(auto it : v) {
+            cnt++;
+            sum += it.first;
+            p.push_back({it.second.first, it.second.second});
+            if(cnt == 2*n) break;
+        }
+
+        sort(p.begin(), p.end());
+
+        ll l = 0, r = p.size()-1;
+        while(l < r) {
+            ans.push_back({p[l].second, p[r].second});
+            l++, r--;
+        }
+        cout << sum << '\n';
+        for(auto it : ans) {
+            cout << it.first << ' '<< it .second << '\n';
+        }
+
     }
 }
 
