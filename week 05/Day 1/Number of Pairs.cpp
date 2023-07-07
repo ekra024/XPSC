@@ -13,23 +13,21 @@ int main()
     optimize();
     ll t; cin >> t;
     while(t--) {
-        ll n, l, r, ans = 0;
+        ll n, l, r;
         cin >> n >> l >> r;
-        vector<ll> v(n);
+        vector<ll>a(n);
+        for(ll i = 0; i < n; i++) cin >> a[i];
 
-        for(ll i = 0; i < n; i++) cin >> v[i];
-
-        sort(v.begin(), v.end());
+        sort(a.begin(), a.end());
+        ll ans = 0;
 
         for(ll i = 0; i < n-1; i++) {
-
-            auto it1 = lower_bound(v.begin()+i+1, v.end(), l - v[i]);
-            auto it2 = upper_bound(v.begin()+i+1, v.end(), r - v[i]);
-            cout <<*it1 << ' '<<*it2 << '\n';
-
-            ans += (it2 - it1);
+            ll x = l - a[i];
+            ll y = r - a[i];
+            auto it = lower_bound(a.begin()+i+1, a.end(), x);
+            auto it2 = upper_bound(a.begin()+i+1, a.end(), y);
+            ans += (it2-it);
         }
-
 
         cout << ans << '\n';
     }
