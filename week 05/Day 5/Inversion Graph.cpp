@@ -16,19 +16,19 @@ int main()
         ll n; cin >> n;
         vector<ll>v(n);
 
-        ll sum = 0, sum2 = 0, ans = 0, sum1 = 0;
+        for(ll i = 0; i < n; i++) cin >> v[i];
+
+        ll ans = 0, mx = 0;
 
         for(ll i = 0; i < n; i++) {
-            cin >> v[i];
-            sum += v[i];
-        }
+            mx = max(mx, v[i]);
 
-        for(ll i = 0; i < n-1; i++) {
-            sum2 += v[i];
-            sum -= v[i];
-            ans = max(ans, __gcd(sum, sum2));
+            if(mx == i+1) ans++;
         }
 
         cout << ans << '\n';
     }
 }
+
+
+
