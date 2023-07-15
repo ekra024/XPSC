@@ -14,23 +14,17 @@ int main()
     optimize();
     ll t; cin >> t;
     while(t--) {
-        string s; cin >> s;
-        ll n = s.size();
-        ll ans = 0, one = 0, zero = n-1;
+        ll n; cin >> n;
+        vector<ll>ans;
 
-        for(ll i = 0; i < s.size(); i++) {
-           if(s[i] == '0') {
-            zero = i; break;
-           }
-           if(s[i] == '1') {
-            one = i;
-           }
+        for(ll i = n; i >= 1; i--)
+            ans.push_back(i);
+
+        if(n%2) cout << -1 << '\n';
+        else {
+            for(auto it : ans) cout << it << ' ';
+            cout << '\n';
         }
-
-       ans = zero - one + 1 ;
-       cout << ans << '\n';
     }
 }
-
-
 

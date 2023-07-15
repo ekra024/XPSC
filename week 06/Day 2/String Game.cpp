@@ -14,23 +14,18 @@ int main()
     optimize();
     ll t; cin >> t;
     while(t--) {
+        ll n; cin >> n;
         string s; cin >> s;
-        ll n = s.size();
-        ll ans = 0, one = 0, zero = n-1;
+        ll cnt = 0;
 
-        for(ll i = 0; i < s.size(); i++) {
-           if(s[i] == '0') {
-            zero = i; break;
-           }
-           if(s[i] == '1') {
-            one = i;
-           }
+        for(ll i = 0; i < n; i++) {
+            if(s[i] == '0') cnt++;
         }
 
-       ans = zero - one + 1 ;
-       cout << ans << '\n';
+        ll mn = min(cnt,(n-cnt));
+
+        if(mn%2) cout << "Zlatan\n";
+        else cout << "Ramos\n";
     }
 }
-
-
 

@@ -14,23 +14,11 @@ int main()
     optimize();
     ll t; cin >> t;
     while(t--) {
-        string s; cin >> s;
-        ll n = s.size();
-        ll ans = 0, one = 0, zero = n-1;
-
-        for(ll i = 0; i < s.size(); i++) {
-           if(s[i] == '0') {
-            zero = i; break;
-           }
-           if(s[i] == '1') {
-            one = i;
-           }
-        }
-
-       ans = zero - one + 1 ;
-       cout << ans << '\n';
+        ll n; cin >> n;
+        if(n<=15 && n <= 10) cout << "Lower Double\n";
+        else if(n <= 15) cout << "Lower Single\n";
+        else if(n <= 25) cout << "Upper Double\n";
+        else cout << "Upper Single\n";
     }
 }
-
-
 

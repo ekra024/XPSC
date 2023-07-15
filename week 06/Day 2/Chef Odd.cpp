@@ -14,23 +14,20 @@ int main()
     optimize();
     ll t; cin >> t;
     while(t--) {
-        string s; cin >> s;
-        ll n = s.size();
-        ll ans = 0, one = 0, zero = n-1;
+        ll n, k; cin >> n >> k;
+        bool ok = false;
+        if(k>n/2) ok = false;
+        else {
+            ll odd = 0;
+            if(n%2) odd = (n/2) + 1;
+            else odd = n/2;
 
-        for(ll i = 0; i < s.size(); i++) {
-           if(s[i] == '0') {
-            zero = i; break;
-           }
-           if(s[i] == '1') {
-            one = i;
-           }
+            ll res = odd - k;
+            if(res%2==0) ok = true;
         }
 
-       ans = zero - one + 1 ;
-       cout << ans << '\n';
+        if(ok) cout << "YES\n";
+        else cout << "NO\n";
     }
 }
-
-
 
