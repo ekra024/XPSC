@@ -14,12 +14,9 @@ int main()
     optimize();
     ll t; cin >> t;
     while(t--) {
-        ll n, m; cin >> n >> m;
-        float dis = n - (n/10.00);
-
-        if(dis < m) cout << "ONLINE\n";
-        else if(dis > m) cout << "DINING\n";
-        else cout << "EITHER\n";
+        ll x; cin >> x;
+        if(x*4 > 1000) cout << "NO\n";
+        else cout << "YES\n";
     }
 }
 

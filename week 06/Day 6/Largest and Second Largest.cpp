@@ -14,12 +14,19 @@ int main()
     optimize();
     ll t; cin >> t;
     while(t--) {
-        ll n, m; cin >> n >> m;
-        float dis = n - (n/10.00);
+        ll n; cin >> n;
+        set<ll> s;
 
-        if(dis < m) cout << "ONLINE\n";
-        else if(dis > m) cout << "DINING\n";
-        else cout << "EITHER\n";
+        for(ll i = 0; i < n; i++) {
+            int a; cin >> a;
+            s.insert(a);
+        }
+
+        ll sum = *s.rbegin();
+        s.erase(sum);
+        sum += *s.rbegin();
+
+        cout << sum << '\n';
     }
 }
 

@@ -14,13 +14,24 @@ int main()
     optimize();
     ll t; cin >> t;
     while(t--) {
-        ll n, m; cin >> n >> m;
-        float dis = n - (n/10.00);
+        ll n; cin >> n;
+        vector<ll>a(n);
 
-        if(dis < m) cout << "ONLINE\n";
-        else if(dis > m) cout << "DINING\n";
-        else cout << "EITHER\n";
+        for(ll i = 0; i < n; i++) cin >> a[i];
+        ll cnt = 0, mn = INT_MAX;
+
+        for(ll i = n-1; i >= 0; i--) {
+            if(a[i] < mn) {
+                mn = a[i];
+            }
+            else if(a[i] > mn) {
+                cnt++;
+            }
+        }
+
+        cout << cnt << '\n';
     }
 }
+
 
 

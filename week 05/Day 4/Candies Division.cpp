@@ -14,13 +14,14 @@ int main()
     optimize();
     ll t; cin >> t;
     while(t--) {
-        ll n, m; cin >> n >> m;
-        float dis = n - (n/10.00);
+        ll n, k; cin >> n >> k;
+        ll div = n/k;
+        ll rem = k/2;
 
-        if(dis < m) cout << "ONLINE\n";
-        else if(dis > m) cout << "DINING\n";
-        else cout << "EITHER\n";
+        if((k*div) + rem < n) cout << (k*div) + rem << '\n';
+        else cout << n << '\n';
     }
 }
+
 
 

@@ -14,13 +14,23 @@ int main()
     optimize();
     ll t; cin >> t;
     while(t--) {
-        ll n, m; cin >> n >> m;
-        float dis = n - (n/10.00);
+        ll n; cin >> n;
+        map<ll, ll> mp;
+        ll cnt = 0;
 
-        if(dis < m) cout << "ONLINE\n";
-        else if(dis > m) cout << "DINING\n";
-        else cout << "EITHER\n";
+        for(ll i = 0; i < n; i++) {
+            int a; cin >> a;
+            if(a%3)mp[a%3]++;
+            else cnt++;
+        }
+
+        ll mn = min(mp[1], mp[2]);
+        ll x = abs(mp[1] - mp[2]);
+        cnt += mn + (x/3);
+
+        cout << cnt << '\n';
     }
 }
+
 
 
