@@ -5,6 +5,7 @@ typedef long long int ll;
 #define gcd(a,b)  __gcd(a,b)
 #define lcm(a,b) (a*b)/__gcd(a,b)
 #define optimize() ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+int mod = 1e9 + 7;
 const int N=1e5;
 int hsh[N];
 
@@ -14,34 +15,30 @@ int main()
     ll t; cin >> t;
     while(t--) {
         ll n; cin >> n;
-        vector<ll>a(n), b(n), ans;
+        vector<ll> a(n), b(n), ans(n, 0);
+        multiset<ll> s;
 
         for(ll i = 0; i < n; i++) cin >> a[i];
         for(ll i = 0; i < n; i++) cin >> b[i];
 
-        queue<ll>q;
-
+        ll sum = 0;
         for(ll i = 0; i < n; i++) {
-            ll amt = 0;
-            ll temp = q.size();
-            while(!q.empty() && temp--) {
-                ll mn = min(a[i], q.front());
-                amt += mn;
-                q.pop();
+            s.insert(a[i] - sum);
+
+            while(!s.empty() && *s.begin()+sum <= b[i]) {
+                ans[i] += *s.begin() + sum;
+                //cout << ans[i] << ' '<< *s.begin() << ' '<< sum << ' ';
+                s.erase(s.begin());
             }
 
-            ll mm = min(a[i], b[i]);
-            amt += mm;
-            ll diff = a[i] - mm;
-            if(diff) q.push(diff);
-            cout << diff << '\n';
-            ans.push_back(amt);
+            ans[i] += s.size()*b[i];
+            sum -= b[i];
+            //cout << ans[i] << ' '<< sum << '\n';
         }
 
         for(auto it : ans) cout << it << ' ';
         cout << '\n';
     }
 }
-
 
 
