@@ -9,29 +9,25 @@ int mod = 1e9 + 7;
 const int N=1e5;
 int hsh[N];
 
+
 int main()
 {
     optimize();
-    ll t; cin >> t;
+    ll t = 1;// cin >> t;
     while(t--) {
-        ll n; cin >> n;
-        vector<ll> a(n);
+        ll n, m, k; cin >> n >> m >> k;
+        vector<ll> a(m+1);
 
-        for(ll i = 0; i < n; i++) cin >> a[i];
-        ll ans = -1;
+        ll ans = 0;
 
-        for(ll i = 0; i <= (1<<8); i++) {
-            ll x = i ^ a[0];
-            for(ll j = 1; j < n; j++) {
-                x ^= (i ^ a[j]);
-            }
-            if(x == 0) {
-                ans = i;break;
-            }
+        for(ll i = 0; i < m+1; i++) cin >> a[i];
+        for(ll i = 0; i < m; i++) {
+            if(__builtin_popcount(a[i] ^ a[m]) <= k) ans++;
         }
 
         cout << ans << '\n';
     }
 }
+
 
 

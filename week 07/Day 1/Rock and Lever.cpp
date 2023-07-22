@@ -18,20 +18,25 @@ int main()
         vector<ll> a(n);
 
         for(ll i = 0; i < n; i++) cin >> a[i];
-        ll ans = -1;
+        sort(a.begin(), a.end());
 
-        for(ll i = 0; i <= (1<<8); i++) {
-            ll x = i ^ a[0];
-            for(ll j = 1; j < n; j++) {
-                x ^= (i ^ a[j]);
+        ll l = 0, r = 0, cnt = 0, low = 1, high = 2, Pair = 0;
+
+        while(r < n) {
+            while(a[r]>= low && a[r] < high && r < n) {
+                cnt++; r++;
             }
-            if(x == 0) {
-                ans = i;break;
+            if(cnt) {
+               Pair += (cnt*(cnt-1))/2;
+               cnt = 0;
             }
+            low = high;
+            high *= 2;
         }
 
-        cout << ans << '\n';
+        cout << Pair << '\n';
     }
 }
+
 
 

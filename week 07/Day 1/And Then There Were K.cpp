@@ -16,9 +16,7 @@ int main()
     ll t; cin >> t;
     while(t--) {
         ll n;cin>>n;
-         ll last=1;
-         while(last*2<=n) last*=2;
-         cout<<last-1<<endl;
+        cout << (1 << __lg(n)) - 1 << '\n';
     }
 }
 

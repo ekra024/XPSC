@@ -15,23 +15,23 @@ int main()
     ll t; cin >> t;
     while(t--) {
         ll n; cin >> n;
-        vector<ll> a(n);
+        ll a = 1, b = 2, c, d;
+        bool ok = false;
 
-        for(ll i = 0; i < n; i++) cin >> a[i];
-        ll ans = -1;
-
-        for(ll i = 0; i <= (1<<8); i++) {
-            ll x = i ^ a[0];
-            for(ll j = 1; j < n; j++) {
-                x ^= (i ^ a[j]);
-            }
-            if(x == 0) {
-                ans = i;break;
+        for(ll i = 3; i <= (1e5); i++) {
+            d = i ^ n;
+            if(d > 2 && d != i) {
+                d = i ^ n;
+                c = i;
+                ok = true;
+                break;
             }
         }
 
-        cout << ans << '\n';
+        if(n == 0) cout << "4 6 3 7\n";
+        else if(ok)
+            cout << a << ' ' << b << ' ' << c << ' ' << d << '\n';
+        else cout << -1 << '\n';
     }
 }
-
 
