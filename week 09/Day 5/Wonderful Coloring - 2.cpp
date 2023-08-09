@@ -17,21 +17,44 @@ int main()
     ll t; cin >> t;
     while(t--) {
         ll n, k; cin >> n >> k;
-        vector<ll> ans;
+        vector<ll> v[n+3], p;
+        int color[n+3] = {0};
         map<ll,ll> mp;
+        vector<pair<ll,ll> > ans;
 
         for(ll i = 0; i < n; i++) {
             int a; cin >> a;
             mp[a]++;
-            if(mp[a] > k) {
-                ans.push_back(0);
+            v[a].push_back(i);
+        }
+
+        for(auto it : mp) {
+            if(it.second >= k) {
+                ll temp = 1;
+                vector<ll> a= v[it.first];
+                for(ll i = 0; i < k; i++) {
+                    color[a[i]] = temp;
+                    temp++;
+                }
             }
             else {
-                ans.push_back(mp[a]);
+                vector<ll> a= v[it.first];
+                for(ll i = 0; i < a.size(); i++) {
+                    ans.push_back({it.first, a[i]});
+                }
             }
         }
 
-        for(auto it : ans) cout << it << ' ';
+        ll sz = 1;
+        ll rem = ans.size()%k;
+        for(ll i = 0; i < ans.size()-rem; i++) {
+            color[ans[i].second] = sz;
+            sz++;
+            if(sz > k) sz = 1;
+        }
+
+        for(ll i = 0; i < n; i++)
+            cout << color[i] << ' ';
         cout << '\n';
     }
 }
