@@ -15,8 +15,8 @@ ll SumOfDigit(ll n)
 {
     ll sum = 0;
     while(n) {
-        sum += n%10;
-        n/= 10;
+        sum += (n%10);
+        n /= 10;
     }
     return sum;
 }
@@ -24,23 +24,25 @@ ll SumOfDigit(ll n)
 int main()
 {
     optimize();
-    ll t = 1;// cin >> t;
-    while(t--) {
-        ll n, s; cin >> n >> s;
-        ll l = 1, h = 1e18;
+    ll n, s; cin >> n >> s;
 
-        while(l < h) {
-            ll mid = l + (h-l)/2;
-            ll res = SumOfDigit(mid);
-            ll sub = mid - res;
-            if(sub >= s) h = mid;
-            else l = mid + 1;
+    ll l = 0, r = n, ans = -1;
+
+    while(l <= r) {
+        ll mid = (r-l)/2 + l;
+
+        ll diff = mid - SumOfDigit(mid);
+        if(diff >= s) {
+            ans = mid;
+            r = mid - 1;
         }
-        ll c = 0;
-       ll ans = max(c, (n-h+1));
-       if(n == s) cout << 0 << '\n';
-       else
-       cout << ans << '\n';
+        else {
+            l = mid + 1;
+        }
     }
-}
+
+    if(ans != -1) cout << (n - ans) + 1 << '\n';
+    else cout << 0 << '\n';
+ }
+
 

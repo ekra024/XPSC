@@ -14,19 +14,21 @@ const int N=1e5;
 int main()
 {
     optimize();
-    ll n; cin >> n;
-    vector<ll> a(n);
-    for(ll i = 0; i < n; i++) cin >> a[i];
-    ll q; cin >> q;
-    while(q--) {
-        ll query; cin >> query;
-        ll it1 = lower_bound(a.begin(), a.end(), query) - a.begin();
-        ll it2 = upper_bound(a.begin(), a.end(), query) - a.begin();
+    ll t ; cin >> t;
+    while(t--) {
+        ll n, k; cin >> n >> k;
+        ll p = 1, ans = 0;
 
-        if(it1-1 < 0) cout << "X ";
-        else cout << a[it1 -1] << ' ';
-        if(it2 >= n) cout << "X\n";
-        else cout << a[it2] << '\n';
+        while(k > 0) {
+            if(k & 1) {
+                ans = (ans+p)%mod;
+            }
+            k /= 2;
+            p = (p*n)%mod;
+        }
+
+        cout << ans << '\n';
     }
 }
+
 

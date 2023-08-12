@@ -10,39 +10,35 @@ using namespace __gnu_pbds;
 template <typename T> using pbds = tree<T, null_type, less<T>,rb_tree_tag, tree_order_statistics_node_update>;
 int mod = 1e9 + 7;
 const int N=1e5;
+vector<ll>prime;
+
 
 int main()
 {
     optimize();
-    ll n, m; cin >> n >> m;
-    ll mn = INT_MAX, mx = INT_MIN;
+    ll t; cin >> t;
+    while(t--) {
+        ll n; cin >> n;
+        char c; cin >> c;
+        string s; cin >> s;
 
-    vector<ll> a(n);
-    for(ll i = 0; i < n; i++) {
-        cin >> a[i];
-        mn = min(mn, a[i]);
-        mx = max(mx, a[i]);
-    }
-
-    ll l = 0, r = mx, ans = -1;
-    while(l <= r) {
-        ll mid = (r-l)/2 + l;
-        ll cut = 0;
+        ll op = -1, even = 0, odd = 0;
+        bool ok = true;
 
         for(ll i = 0; i < n; i++) {
-            if(a[i] > mid) cut += (a[i] - mid);
+            if(s[i] != c) {
+                ok = false;
+            }
+            else op = i;
         }
 
-        if(cut >= m) {
-            ans = mid;
-            l = mid + 1;
+
+        if(ok) cout << 0 << '\n';
+        else if(op == n-1 || op >= n/2) {
+            cout << 1 << '\n'<< op + 1 << '\n';
         }
-        else {
-            r = mid - 1;
-        }
+        else cout << 2 << '\n'<< n-1 << ' '<< n << '\n';
     }
-
-    cout << ans << '\n';
 }
 
 

@@ -14,35 +14,29 @@ const int N=1e5;
 int main()
 {
     optimize();
-    ll n, m; cin >> n >> m;
-    ll mn = INT_MAX, mx = INT_MIN;
+    ll t; cin >> t;
+    while(t--) {
+        ll n, x; cin >> n >> x;
+        vector<ll> a(n), sort_a(n);
+        for(ll i = 0; i < n; i++) {
+            cin >> a[i];
+            sort_a[i] = a[i];
+        }
 
-    vector<ll> a(n);
-    for(ll i = 0; i < n; i++) {
-        cin >> a[i];
-        mn = min(mn, a[i]);
-        mx = max(mx, a[i]);
-    }
+        sort(sort_a.begin(), sort_a.end());
 
-    ll l = 0, r = mx, ans = -1;
-    while(l <= r) {
-        ll mid = (r-l)/2 + l;
-        ll cut = 0;
+        bool ok = true;
 
         for(ll i = 0; i < n; i++) {
-            if(a[i] > mid) cut += (a[i] - mid);
+            if(a[i]!= sort_a[i]) {
+                if(i+x >= n && i-x < 0) {
+                    ok = false;break;
+                }
+            }
         }
 
-        if(cut >= m) {
-            ans = mid;
-            l = mid + 1;
-        }
-        else {
-            r = mid - 1;
-        }
+        if(ok) cout << "YES\n";
+        else cout << "NO\n";
     }
-
-    cout << ans << '\n';
 }
-
 
