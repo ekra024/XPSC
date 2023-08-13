@@ -16,30 +16,40 @@ int main()
     optimize();
     ll t; cin >> t;
     while(t--) {
-        ll n, c; cin >> n >> c;
+        ll n, c, mn = INT_MAX, mx = INT_MIN; cin >> n >> c;
         vector<ll> a(n);
-
-        for(ll i = 0; i < n; i++)
+        for(ll i = 0; i < n; i++){
             cin >> a[i];
+            mn = min(a[i], mn);
+            mx = max(a[i], mx);
+        }
         sort(a.begin(), a.end());
 
-        ll l = 0, h = a[n-1], best = 0;
+        ll l = mn, r = mx, ans = -1;
+        while(l <= r) {
+            ll mid = (r-l)/2 + l;
+            ll gap = mid - a[0], cow = 1, posi = a[0];
 
-        while(l <= h) {
-            ll mid = (h+l+1)/2;
-            ll cnt = 1, left = 0;
-            for(ll i = 1; i < n && cnt < c; i++) {
-                if(a[i] - a[left] >= mid)
-                    left = i, cnt++;
+            for(ll i = 0; i < n; i++) {
+                posi = posi + gap;
+                auto it = lower_bound(a.begin(), a.end(), posi);
+                if(it == a.end()) {
+                    break;
+                }
+                cow++;
+                posi = *it;
             }
-            if(cnt >= c) {
-                best = mid;
+
+            if(cow < c) {
+                r = mid - 1;
+            }
+            else {
+                ans = max(gap, ans);
                 l = mid + 1;
             }
-            else h = mid - 1;
         }
 
-        cout << best << '\n';
+        cout << ans << '\n';
     }
 }
 
