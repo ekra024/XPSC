@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+#define gcd(a,b)  __gcd(a,b)
+#define lcm(a,b) (a*b)/__gcd(a,b)
+#define optimize() ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+#include<ext/pb_ds/assoc_container.hpp>
+#include<ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
+template <typename T> using pbds = tree<T, null_type, less<T>,rb_tree_tag, tree_order_statistics_node_update>;
+int mod = 1e9 + 7;
+const int N=1e4 + 5;
+
+int main()
+{
+    optimize();
+    ll t=1;// cin >> t;
+    while(t--) {
+        ll n; cin >> n;
+        string s; cin >> s;
+        ll one = 0, zero = 0;
+
+        for(ll i = 0; i < n; i++) {
+            if(s[i] == '1') one++;
+            else zero++;
+        }
+
+        ll l = pow(2,one), r = pow(2,n) - (pow(2,zero)-1);
+
+        vector<ll>ans;
+
+        for(ll i = l; i <= r; i++) {
+            ans.push_back(i);
+        }
+
+        for(auto it : ans)cout << it << ' ';
+        cout <<'\n';
+    }
+}
+
