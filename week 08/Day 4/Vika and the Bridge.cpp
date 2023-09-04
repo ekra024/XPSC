@@ -18,14 +18,12 @@ int main()
     ll t; cin >> t;
     while(t--) {
         ll n, k; cin >> n >> k;
-        vector<ll> c(n), last(k+1, -1);
-        vector<multiset<ll > > dist(k+1);
-
-        map<ll,ll> mp;
+        vector<ll> v(n), last(k+1, -1);
+        multiset<ll > dist[k+1];
         ll mx = -1, mx1 = -1, mx2 = -1, cnt = 0;
 
         for(ll i = 0; i < n; i++) {
-            cin >> c[i];
+            cin >> v[i];
         }
 
         for(ll i = 0; i < n; i++) {
@@ -33,34 +31,28 @@ int main()
             last[v[i]] = i;
             dist[v[i]].insert(j);
             while(dist[v[i]].size() > 2) {
-                dist[v[i]].erase(dist[v[i].begin());
+                dist[v[i]].erase(dist[v[i]].begin());
             }
         }
 
         int ans = n;
 
-        for(auto it : mp) {
-            if(it.second > mx) {
-                mx = it.first;
-            }
-        }
-
-        for(ll i = 0; i < k+1; i++) {
+        for(ll i = 0; i <= k; i++) {
             if(last[i] != -1) {
-                ll j = n - last[i] - 1;
+                ll jump = n - last[i] - 1;
+                dist[i].insert(jump);
+                while(dist[i].size() > 2) {
+                    dist[i].erase(dist[i].begin());
+                }
+                vector<int> values;
+
+                for(auto j : dist[i])
+                    values.push_back(j);
+                ans = min(ans, max(values[0], values[1]/2));
             }
         }
 
-        if(cnt) {
-            mx2 = mx1;
-            mx1 = cnt;
-            cnt = 0;
-        }
-        //cout << mx1 << ' '<< mx2 << '\n';
-
-        if(mx1 == -1 && mx2 == -1) cout << 0 << '\n';
-        else if(mx2 == -1) cout << mx1/2 << '\n';
-        else cout << min(mx1/2 , mx2) << '\n';
+        cout << ans << '\n';
     }
 }
 
