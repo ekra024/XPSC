@@ -19,24 +19,28 @@ int main()
         ll n; cin >> n;
         string s; cin >> s;
 
-        ll ans = -1, l = 0, r = 0, cnt = 0, res = INT_MAX;
+        ll ans = INT_MAX, l = 0, r = 0, cnt = 0, res = INT_MAX;
 
-        while(r < n) {
-            if(cnt && s[r] == 'a') {
-                res = min(res, (r - l+1));
-                if(res <= 4) {
-                    ans = res;
-                }
+        for(ll i = 0; i < n-1; i++) {
+            if(s[i] == 'a' && s[i+1] == 'a') {
+                r = 2;
+                ans = min(ans, r);
             }
-            if(s[r] == 'a' && cnt == 0) {
-                cnt = 1;
-                l = r;
+            else if(i < n-2 && s[i] == 'a' && s[i+2] == 'a') {
+                r = 3;
+                ans = min(ans, r);
             }
-            r++;
-
+            else if(i < n-3 && s[i] == 'a' && s[i+3] == 'a' && s[i+1]!=s[i+2]) {
+                r = 4;
+                ans = min(ans, r);
+            }
+            else if(i < n-6 && s[i]=='a'&&s[i+3]=='a' && s[i+6]=='a' && s[i+1] != s[i+5]) {
+                r = 7;
+                ans = min(ans,r);
+            }
         }
-
-        cout << ans << '\n';
+        if(ans == INT_MAX) cout << -1 << '\n';
+        else cout << ans << '\n';
     }
 }
 
